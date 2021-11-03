@@ -10,19 +10,17 @@ const getUsers = () => {
             });
 }
 
-const postUsers = () => {
-    const axios_post_call = axios.post
-        (
-            'https://user-api-aunsyedshah.herokuapp.com/api/adduser',
-            {
-                name: req.body.name,
-                email: req.body.email,
-                password: req.body.password
-            }
-        ).then
+const sendUser = () => {
+    const axios_post_call = axios.post('https://user-api-aunsyedshah.herokuapp.com/api/adduser', {
+            name: 'Shah',
+            email: 'aun',
+            address: 'aun',
+        });
+    axios_post_call.then
         (
             response => {
                 console.log(response);
-            }
-        );
+            }).catch(error => {
+                return error;
+            });
 }
