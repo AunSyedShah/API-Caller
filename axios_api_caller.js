@@ -4,23 +4,31 @@ const getUsers = () => {
     axios_get_call.then
         (
             response => {
-                document.getElementById('result').innerHTML = response.data.map(user => `<li>${user.name}</li>`).join('');
+                document.getElementsByClassName('table')[0].innerHTML = response.data.map(user => `<tr><td>${user.name}</td><td>${user.email}</td><td>${user.address}</td></tr>`).join('');
             }).catch(error => {
                 return error;
             });
 }
 
 const sendUser = () => {
-    const axios_post_call = axios.post('https://user-api-aunsyedshah.herokuapp.com/api/adduser', {
-            name: 'Shah',
-            email: 'aun',
-            address: 'aun',
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const address = document.getElementById('address').value;
+    if (name === '' || email === '' || address === '') {
+        alert('Please fill all the fields');
+    } else {
+        const axios_post_call = axios.post('https://user-api-aunsyedshah.herokuapp.com/api/adduser', {
+            name: name,
+            email: email,
+            address: address,
         });
-    axios_post_call.then
-        (
-            response => {
-                console.log(response);
-            }).catch(error => {
-                return error;
-            });
+        axios_post_call.then
+            (
+                response => {
+                    console.log(response);
+                    location.reload();
+                }).catch(error => {
+                    return error;
+                });
+    }
 }
