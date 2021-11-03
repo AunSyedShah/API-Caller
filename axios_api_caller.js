@@ -4,7 +4,12 @@ const getUsers = () => {
     axios_get_call.then
         (
             response => {
-                document.getElementsByClassName('table')[0].innerHTML = response.data.map(user => `<tr><td>${user.name}</td><td>${user.email}</td><td>${user.address}</td></tr>`).join('');
+                if (response.data.length === 0) {
+                    document.getElementsByClassName('table')[0].innerHTML = 'No users found';
+                }
+                else {
+                    document.getElementsByClassName('table')[0].innerHTML = response.data.map(user => `<tr><td>${user.name}</td><td>${user.email}</td><td>${user.address}</td></tr>`).join('');
+                }
             }).catch(error => {
                 return error;
             });
