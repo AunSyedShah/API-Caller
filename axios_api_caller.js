@@ -8,7 +8,7 @@ const getUsers = () => {
                     document.getElementsByClassName('table')[0].innerHTML = 'No users found';
                 }
                 else {
-                    document.getElementsByClassName('table')[0].innerHTML = response.data.map(user => `<tr><td>${user.name}</td><td>${user.email}</td><td>${user.address}</td></tr>`).join('');
+                    document.getElementsByClassName('table')[0].innerHTML = response.data.map(user => `<tr><td>${user.id}</td><td>${user.name}</td><td>${user.email}</td><td>${user.address}</td></tr>`).join('');
                 }
             }).catch(error => {
                 return error;
@@ -36,4 +36,17 @@ const sendUser = () => {
                     return error;
                 });
     }
+}
+
+const deleteUser = () => {
+    const user_id = document.getElementById('delete_user_id').value;
+    const axios_delete_call = axios.delete(`https://user-api-aunsyedshah.herokuapp.com/api/deleteuser/${user_id}`);
+    axios_delete_call.then
+        (
+            response => {
+                console.log(response);
+                location.reload();
+            }).catch(error => {
+                return error;
+            });
 }
