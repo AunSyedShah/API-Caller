@@ -20,11 +20,14 @@ const getUser = () => {
     axios.get(`https://user-api-aunsyedshah.herokuapp.com/api/users/${userId}`).then
         (
             response => {
-                document.getElementById('update_name').value = response.data.name;
-                document.getElementById('update_email').value = response.data.email;
-                document.getElementById('update_address').value = response.data.address;
+                if (response.data != undefined) {
+                    document.getElementById('update_name').value = response.data.name;
+                    document.getElementById('update_email').value = response.data.email;
+                    document.getElementById('update_address').value = response.data.address;
+                }
             }
         ).catch(error => {
+            alert(error);
             return error;
         }
         );
