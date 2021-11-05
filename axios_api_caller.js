@@ -15,6 +15,22 @@ const getUsers = () => {
             });
 }
 
+const getUser = () => {
+    const userId = document.getElementById('update_user_id').value;
+    axios.get(`https://user-api-aunsyedshah.herokuapp.com/api/users/${userId}`).then
+        (
+            response => {
+                document.getElementById('update_name').value = response.data.name;
+                document.getElementById('update_email').value = response.data.email;
+                document.getElementById('update_address').value = response.data.address;
+            }
+        ).catch(error => {
+            return error;
+        }
+        );
+}
+
+
 const sendUser = () => {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
@@ -44,9 +60,29 @@ const deleteUser = () => {
     axios_delete_call.then
         (
             response => {
-                console.log(response);
+                alert(response.data);
                 location.reload();
             }).catch(error => {
-                return error;
+                alert(error);
+            });
+}
+
+const updateUser = () => {
+    const user_id = document.getElementById('update_user_id').value;
+    const name = document.getElementById('update_name').value;
+    const email = document.getElementById('update_email').value;
+    const address = document.getElementById('update_address').value;
+    const axios_put_call = axios.put(`https://user-api-aunsyedshah.herokuapp.com/api/updateuser/${user_id}`, {
+        name: name,
+        email: email,
+        address: address,
+    });
+    axios_put_call.then
+        (
+            response => {
+                alert(response.data);
+                location.reload();
+            }).catch(error => {
+                alert(error);
             });
 }
