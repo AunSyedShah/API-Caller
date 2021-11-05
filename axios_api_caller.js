@@ -20,7 +20,7 @@ const getUser = () => {
     axios.get(`https://user-api-aunsyedshah.herokuapp.com/api/users/${userId}`).then
         (
             response => {
-                if (response.data != "") {
+                if (response.data.name != "") {
                     document.getElementById('update_name').value = response.data.name;
                     document.getElementById('update_email').value = response.data.email;
                     document.getElementById('update_address').value = response.data.address;
