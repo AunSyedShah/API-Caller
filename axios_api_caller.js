@@ -21,7 +21,13 @@ const getUsers = () => {
         (
             response => {
                 if (response.data.length === 0) {
-                    document.getElementsByClassName('table')[0].innerHTML = 'No users found';
+                    const output_table = document.getElementById('tableBodyOutPut');
+                    const no_user_message = `
+                    <tr>
+                        <td colspan="4">No User Found</td>
+                    </tr>
+                    `
+                    output_table.innerHTML = no_user_message;
                 }
                 else {
                     const users_array = response.data;
