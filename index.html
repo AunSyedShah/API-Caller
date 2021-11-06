@@ -12,6 +12,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="axios_api_caller.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <title>User API Caller</title>
 </head>
 
@@ -61,7 +64,7 @@
             </div>
         </div>
         <h2>User Data from API</h2>
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -70,13 +73,8 @@
                     <th scope="col">Address</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+            <tbody id="tableBodyOutPut">
+                
             </tbody>
         </table>
 

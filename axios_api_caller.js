@@ -1,3 +1,19 @@
+function printArrayTable(arr) {
+    const output_table = document.getElementById('tableBodyOutPut');
+    for (let index = 0; index < arr.length; index++) {
+        let row = `
+                <tr>
+                    <td>${arr[index].id}</td>
+                    <td>${arr[index].name}</td>
+                    <td>${arr[index].email}</td>
+                    <td>${arr[index].address}</td>
+                </tr>
+                `
+        output_table.innerHTML += row;
+
+    }
+}
+
 const getUsers = () => {
     const axios_get_call = axios.get
         ('https://user-api-aunsyedshah.herokuapp.com/api/users');
@@ -8,7 +24,8 @@ const getUsers = () => {
                     document.getElementsByClassName('table')[0].innerHTML = 'No users found';
                 }
                 else {
-                    document.getElementsByClassName('table')[0].innerHTML = response.data.map(user => `<tr><td>${user.id}</td><td>${user.name}</td><td>${user.email}</td><td>${user.address}</td></tr>`).join('');
+                    const users_array = response.data;
+                    printArrayTable(users_array);
                 }
             }).catch(error => {
                 return error;
@@ -25,7 +42,7 @@ const getUser = () => {
                     document.getElementById('update_email').value = response.data.email;
                     document.getElementById('update_address').value = response.data.address;
                 }
-                else{
+                else {
                     document.getElementById('update_name').value = "No User Found With The Provided ID";
                 }
             }
