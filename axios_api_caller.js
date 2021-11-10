@@ -3,7 +3,7 @@ function printArrayTable(arr) {
     for (let index = 0; index < arr.length; index++) {
         let row = `
                 <tr>
-                    <td>${arr[index].id}</td>
+                    <td>${arr[index].username}</td>
                     <td>${arr[index].name}</td>
                     <td>${arr[index].email}</td>
                     <td>${arr[index].address}</td>
@@ -13,6 +13,7 @@ function printArrayTable(arr) {
 
     }
 }
+
 
 const getUsers = () => {
     const axios_get_call = axios.get
@@ -58,24 +59,26 @@ const getUser = () => {
         }
         );
 }
-
-
 const sendUser = () => {
+    const username = document.getElementById('username').value;
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const address = document.getElementById('address').value;
-    if (name === '' || email === '' || address === '') {
+    if (username === '' || name === '' || email === '' || address === '') {
         alert('Please fill all the fields');
-    } else {
-        const axios_post_call = axios.post('https://user-api-aunsyedshah.herokuapp.com/api/adduser', {
+    }
+    else {
+        const userObject = {
+            username: username,
             name: name,
             email: email,
             address: address,
-        });
+        }
+        const axios_post_call = axios.post('https://user-api-aunsyedshah.herokuapp.com/api/adduser', userObject);
         axios_post_call.then
             (
                 response => {
-                    console.log(response);
+                    alert(response.data);
                     location.reload();
                 }).catch(error => {
                     return error;
@@ -84,8 +87,8 @@ const sendUser = () => {
 }
 
 const deleteUser = () => {
-    const user_id = document.getElementById('delete_user_id').value;
-    const axios_delete_call = axios.delete(`https://user-api-aunsyedshah.herokuapp.com/api/deleteuser/${user_id}`);
+    const username_delete = document.getElementById('delete_user_id').value;
+    const axios_delete_call = axios.delete(`https://user-api-aunsyedshah.herokuapp.com/api/deleteuser/${username_delete}`);
     axios_delete_call.then
         (
             response => {
