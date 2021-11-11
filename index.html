@@ -25,10 +25,6 @@
         <div class="bg-light">
             <h2>Add User</h2>
             <div class="form-group">
-                <label for="name">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter Username" name="username">
-            </div>
-            <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
             </div>
@@ -41,16 +37,6 @@
                 <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address">
             </div>
             <button type="button" class="btn btn-primary my-1" onclick="sendUser()">Add User</button>
-        </div>
-
-        <div class="bg-light">
-            <h2>Delete User</h2>
-            <div class="form-group">
-                <label for="name">Delete User</label>
-                <input type="text" class="form-control" id="delete_user_id" placeholder="Enter User ID"
-                    name="delete_user_id">
-                <button type="button" class="btn btn-primary my-1" onclick="deleteUser()">Delete User</button>
-            </div>
         </div>
 
         <div class="bg-light">
@@ -71,10 +57,10 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Username</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Address</th>
+                    <th scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody id="tableBodyOutPut">
