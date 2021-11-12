@@ -68,6 +68,9 @@ const sendUser = () => {
                     return error;
                 });
     }
+    document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('address').value = '';
 }
 
 const deleteUser = (id) => {
@@ -90,7 +93,11 @@ const updateUser = (id) => {
             }).catch(error => {
                 alert(error);
             });
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('address').value = '';
 }
+
 
 const getUser = (id) => {
     const axios_get_call = axios.get(`https://user-api-aunsyedshah.herokuapp.com/api/users/${id}`);
