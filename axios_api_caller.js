@@ -3,10 +3,17 @@ function printArrayTable(arr) {
     for (let index = 0; index < arr.length; index++) {
         let row = `
                 <tr>
-                    <td>${arr[index].name}</td>
-                    <td>${arr[index].email}</td>    
-                    <td>${arr[index].address}</td>
+                    <td>
+                    ${arr[index].name}
+                    </td>
+                    <td>
+                    ${arr[index].email}
+                    </td>
+                    <td>
+                    ${arr[index].address}
+                    </td>
                     <td><button type="button" class="btn btn-danger" onclick="deleteUser('${arr[index]._id}')">Delete</button></td>
+                    <td><button type="button" class="btn btn-info" onclick="getUser('${arr[index]._id}')">Edit</button></td>
                 </tr>
                 `
         output_table.innerHTML += row;
@@ -74,21 +81,26 @@ const deleteUser = (id) => {
             });
 }
 
-const updateUser = () => {
-    const user_id = document.getElementById('update_user_id').value;
-    const name = document.getElementById('update_name').value;
-    const email = document.getElementById('update_email').value;
-    const address = document.getElementById('update_address').value;
-    const axios_put_call = axios.put(`https://user-api-aunsyedshah.herokuapp.com/api/updateuser/${user_id}`, {
-        name: name,
-        email: email,
-        address: address,
-    });
-    axios_put_call.then
+const updateUser = (id) => {
+    const axios_update_call = axios.put(`https://user-api-aunsyedshah.herokuapp.com/api/users/${id}`);
+    axios_update_call.then
         (
             response => {
-                alert(response.data);
-                location.reload();
+                getUsers();
+            }).catch(error => {
+                alert(error);
+            });
+}
+
+const getUser = (id) => {
+    const axios_get_call = axios.get(`https://user-api-aunsyedshah.herokuapp.com/api/users/${id}`);
+    axios_get_call.then
+        (
+            response => {
+                const user_object = response.data;
+                document.getElementById('name').value = user_object.name;
+                document.getElementById('email').value = user_object.email;
+                document.getElementById('address').value = user_object.address;
             }).catch(error => {
                 alert(error);
             });

@@ -36,23 +36,9 @@
                 <label for="name">Address</label>
                 <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address">
             </div>
-            <button type="button" class="btn btn-primary my-1" onclick="sendUser()">Add User</button>
+            <button type="button" class="btn btn-primary my-1" onclick="sendUser()">Add User / Update</button>
         </div>
-
-        <div class="bg-light">
-            <h2>Update User Details</h2>
-            <div class="form-group">
-                <input type="text" class="form-control" id="update_user_id" placeholder="Enter User ID"
-                    name="update_user_id">
-                <button type="button" class="btn btn-primary my-1" onclick="getUser()">Get User</button>
-                <input type="text" class="form-control my-1" id="update_name" placeholder="Enter Name"
-                    name="update_name">
-                <input type="text" class="form-control my-1" id="update_email" placeholder="Enter Email"
-                    name="update_email">
-                <input type="text" class="form-control my-1" id="update_address" placeholder="Enter Address">
-                <button type="button" class="btn btn-primary my-1" onclick="updateUser()">Update User</button>
-            </div>
-        </div>
+        
         <h2>User Data from API</h2>
         <table class="table table-striped">
             <thead>
@@ -61,6 +47,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Address</th>
                     <th scope="col">Delete</th>
+                    <th scope="col">Update</th>
                 </tr>
             </thead>
             <tbody id="tableBodyOutPut">
