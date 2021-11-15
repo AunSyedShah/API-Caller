@@ -84,8 +84,17 @@ const deleteUser = (id) => {
             });
 }
 
-const updateUser = (id) => {
-    const axios_update_call = axios.put(`https://user-api-aunsyedshah.herokuapp.com/api/users/${id}`);
+const updateUser = () => {
+    const user_id = document.getElementById('user_id').value;
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const address = document.getElementById('address').value;
+    const userObject = {
+        name: name,
+        email: email,
+        address: address,
+    }
+    const axios_update_call = axios.put(`https://user-api-aunsyedshah.herokuapp.com/api/users/${user_id}`, userObject);
     axios_update_call.then
         (
             response => {
@@ -105,6 +114,7 @@ const getUser = (id) => {
         (
             response => {
                 const user_object = response.data;
+                document.getElementById('user_id').value = user_object._id;
                 document.getElementById('name').value = user_object.name;
                 document.getElementById('email').value = user_object.email;
                 document.getElementById('address').value = user_object.address;
