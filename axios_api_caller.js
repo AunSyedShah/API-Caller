@@ -1,19 +1,17 @@
-function printArrayTable(arr) {
+let users_array = []
+
+
+function printArrayTable(users_array) {
     const output_table = document.getElementById('tableBodyOutPut');
-    for (let index = 0; index < arr.length; index++) {
+    for (let index = 0; index < users_array.length; index++) {
         let row = `
-                <tr>
-                    <td>
-                    ${arr[index].name}
-                    </td>
-                    <td>
-                    ${arr[index].email}
-                    </td>
-                    <td>
-                    ${arr[index].address}
-                    </td>
-                    <td><button type="button" class="btn btn-danger" onclick="deleteUser('${arr[index]._id}')">Delete</button></td>
-                    <td><button type="button" class="btn btn-info" onclick="getUser('${arr[index]._id}')">Edit</button></td>
+                <tr id="${users_array[index]._id}">
+                    <th scope="row">${users_array[index]._id}</th>
+                    <td>${users_array[index].name}</td>
+                    <td>${users_array[index].email}</td>
+                    <td>${users_array[index].address}</td>
+                    <td><button type="button" class="btn btn-danger" onclick="deleteUser('${users_array[index]._id}')">Delete</button></td>
+                    <td><button type="button" class="btn btn-info" onclick="editUser('${users_array[index]._id}', ${index})">Edit</button></td>
                 </tr>
                 `
         output_table.innerHTML += row;
@@ -39,7 +37,7 @@ const getUsers = () => {
                 }
                 else {
                     document.getElementById('tableBodyOutPut').innerHTML = '';
-                    const users_array = response.data;
+                    users_array = response.data;
                     printArrayTable(users_array);
                 }
             }).catch(error => {
@@ -84,28 +82,6 @@ const deleteUser = (id) => {
             });
 }
 
-const updateUser = () => {
-    const user_id = document.getElementById('user_id').value;
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const address = document.getElementById('address').value;
-    const userObject = {
-        name: name,
-        email: email,
-        address: address,
-    }
-    const axios_update_call = axios.put(`https://user-api-aunsyedshah.herokuapp.com/api/users/${user_id}`, userObject);
-    axios_update_call.then
-        (
-            response => {
-                getUsers();
-            }).catch(error => {
-                alert(error);
-            });
-            document.getElementById('name').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('address').value = '';
-}
 
 
 const getUser = (id) => {
@@ -121,4 +97,36 @@ const getUser = (id) => {
             }).catch(error => {
                 alert(error);
             });
+}
+
+function editUser(_id, index) {
+    console.log(_id, index);
+
+    const userObject = users_array[index]
+
+    console.log("userObject: ", userObject);
+
+    document.getElementById(_id).innerHTML = `
+    <tr id="${_id}"> 
+        
+            <th scope="row">${_id}</th>
+            <td><input type="text" id="${_id}-name" value="${userObject.name}" /></td>
+            <td><input type="text" id="${_id}-email" value="${userObject.email}" /></td>
+            <td><input type="text" id="${_id}-address" value="${userObject.address}" /></td>
+            <td>
+                <button type="button" onclick="updateUser('${_id}')" class="btn btn-success">Update</button>
+            </td>
+        </tr>`;
+}
+
+function updateUser(_id) {
+
+    const name = document.getElementById(`${_id}-name`).value
+    const email = document.getElementById(`${_id}-email`).value
+    const address = document.getElementById(`${_id}-address`).value
+
+    axios.put(`https://user-api-aunsyedshah.herokuapp.com/api/users/${_id}`, { name, email, address })
+        .then(function (response) {
+            getUsers();
+        })
 }
